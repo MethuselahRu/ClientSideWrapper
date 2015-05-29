@@ -1,10 +1,10 @@
 package ru.fourgotten.VoxileWrapper;
+
 import ru.fourgotten.VoxileSecurity.Data.MessagesWrapper.MessageWrappedGame;
 import ru.fourgotten.VoxileSecurity.SecureConnection;
-import ru.fourgotten.VoxileSecurity.SecureConnection.ConnectionEstablishedNotification;
 import ru.fourgotten.VoxileSecurity.WrappedGameStarter;
 
-public final class Wrapper extends WrappedGameStarter implements ConnectionEstablishedNotification
+public final class Wrapper extends WrappedGameStarter
 {
 	private static final int timeoutMSec = 1000 * 30;
 	private static final int granuleMSec = 1000 * 2;
@@ -12,7 +12,7 @@ public final class Wrapper extends WrappedGameStarter implements ConnectionEstab
 	{
 		try
 		{
-			final SecureConnection connection = new SecureConnection(null, port, this);
+			final SecureConnection connection = new SecureConnection(null, port);
 			connection.start();
 			System.out.println("Connecting to the launcher (" + port + ")...");
 			for(int interval = 0; !Thread.interrupted() && (interval * granuleMSec < timeoutMSec); Thread.sleep(granuleMSec), interval += 1)
@@ -31,15 +31,6 @@ public final class Wrapper extends WrappedGameStarter implements ConnectionEstab
 		}
 		return null;
 	}
-	@Override
-	public void connectionEstablished(SecureConnection connection)
-	{
-		System.out.println("\nConnection with launcher has been established!");
-	}
-	@Override
-	public void connectionBreaked()
-	{
-	}
 	private void run(String[] args)
 	{
 		// Test for right code location
@@ -49,21 +40,29 @@ public final class Wrapper extends WrappedGameStarter implements ConnectionEstab
 			System.err.println("Bad source location! (1)");
 			System.exit(1);
 		}
-		// Connect and receive starting parameters
-		if(args.length != 2)
-		{
-			System.err.println("Wrong command line! (2)");
-			System.exit(2);
-		}
-		if(!"--port".equalsIgnoreCase(args[0]))
-		{
-			System.err.println("Wrong command line! (3-1)");
-			System.exit(3);
-		}
 		try
 		{
-			final int localLauncherPort = Integer.parseInt(args[1]);
-			final MessageWrappedGame msg = receiveMessageFromLauncher(localLauncherPort);
+			MessageWrappedGame msg;
+			if(args.length == 2 && "--port".equalsIgnoreCase(args[0]))
+			{
+				// Connect and receive starting parameters
+				if(args.length != 2)
+				{
+					System.err.println("Wrong command line! (2)");
+					System.exit(2);
+				}
+				if(!"--port".equalsIgnoreCase(args[0]))
+				{
+					System.err.println("Wrong command line! (3-1)");
+					System.exit(3);
+				}
+				final int localLauncherPort = Integer.parseInt(args[1]);
+				msg = receiveMessageFromLauncher(localLauncherPort);
+			} else {
+				System.err.println("Wrong command line! (3-3)");
+				System.exit(3);
+				msg = new MessageWrappedGame();
+			}
 			if(msg == null)
 			{
 				System.err.println("Cannot receive data from local launcher instance!\n"
