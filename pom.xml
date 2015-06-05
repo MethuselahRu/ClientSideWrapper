@@ -2,9 +2,9 @@
 			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>ru.fourgotten.VoxileWrapper</name>
-	<groupId>ru.fourgotten</groupId>
-	<artifactId>VoxileWrapper</artifactId>
+	<name>ru.methuselah.clientsidewrapper</name>
+	<groupId>ru.methuselah</groupId>
+	<artifactId>clientsidewrapper</artifactId>
 	<version>0.14a</version>
 	<packaging>jar</packaging>
 
@@ -110,14 +110,12 @@
 						<option>-classobfuscationdictionary DictionaryClasses.txt</option>
 						<option>-obfuscationdictionary DictionaryFieldsMethods.txt</option>
 						<option>-adaptresourcefilenames</option>
-						<option>-repackageclasses ${project.groupId}.${project.artifactId}</option>
 						<option>-keepattributes Signature</option>
-						<option>-keepclassmembers public class ru.methuselah.authlib.** { *; }</option>
+						<option>-repackageclasses ${project.groupId}.${project.artifactId}</option>
 						<option>-keepclassmembers public class ru.fourgotten.VoxileSecurity.Data.** { *; }</option>
 						<option>-keepclassmembers @ru.fourgotten.VoxileSecurity.ProGuardKeep class ** { @java.lang.Override *; }</option>
 						<option>-keep public class ${project.groupId}.${project.artifactId}.Wrapper { public static void main(java.lang.String[]); }</option>
 						<option>-keep public class ${project.groupId}.${project.artifactId}.Tweaker { *; }</option>
-						<option>-keep public class com.mojang.authlib.properties.** { *; }</option>
 						<option>-dontnote ru.methuselah.authlib.**</option>
 						<option>-dontnote ru.fourgotten.VoxileSecurity.Data.**</option>
 						<option>-dontnote ru.fourgotten.VoxileSecurity.Hacks.**</option>
@@ -158,6 +156,7 @@
 								<includes>
 									<include>com.google.code.gson:gson</include>
 									<include>ru.methuselah:authlib</include>
+									<!--include>ru.fourgotten:VoxileSecurity</include-->
 								</includes>
 							</artifactSet>
 							<relocations>

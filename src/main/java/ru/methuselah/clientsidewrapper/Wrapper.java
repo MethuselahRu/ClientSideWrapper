@@ -1,4 +1,4 @@
-package ru.fourgotten.VoxileWrapper;
+package ru.methuselah.clientsidewrapper;
 
 import ru.fourgotten.VoxileSecurity.Data.MessagesWrapper.MessageWrappedGame;
 import ru.fourgotten.VoxileSecurity.SecureConnection;
