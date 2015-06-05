@@ -14,12 +14,12 @@
 
 	<repositories>
 		<repository>
-			<id>methuselah-repo</id>
-			<url>http://maven.methuselah.ru/</url>
-		</repository>
-		<repository>
 			<id>project-local-repo</id>
 			<url>file://${project.basedir}/libs/</url>
+		</repository>
+		<repository>
+			<id>methuselah-repo</id>
+			<url>http://maven.methuselah.ru/</url>
 		</repository>
 	</repositories>
 
