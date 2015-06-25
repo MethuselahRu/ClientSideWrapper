@@ -5,7 +5,7 @@
 	<name>ru.methuselah.clientsidewrapper</name>
 	<groupId>ru.methuselah</groupId>
 	<artifactId>clientsidewrapper</artifactId>
-	<version>0.14a</version>
+	<version>0.15a</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -36,9 +36,9 @@
 			<version>2.3.1</version>
 		</dependency>
 		<dependency>
-			<groupId>ru.fourgotten</groupId>
-			<artifactId>VoxileSecurity</artifactId>
-			<version>0.14a</version>
+			<groupId>ru.methuselah</groupId>
+			<artifactId>securitylibrary</artifactId>
+			<version>0.15a</version>
 		</dependency>
 		<dependency>
 			<groupId>net.minecraft</groupId>
@@ -96,8 +96,8 @@
 					<assembly>
 						<inclusions>
 							<inclusion>
-								<groupId>ru.fourgotten</groupId>
-								<artifactId>VoxileSecurity</artifactId>
+								<groupId>ru.methuselah</groupId>
+								<artifactId>securitylibrary</artifactId>
 								<library>false</library>
 							</inclusion>
 						</inclusions>
@@ -112,13 +112,13 @@
 						<option>-adaptresourcefilenames</option>
 						<option>-keepattributes Signature</option>
 						<option>-repackageclasses ${project.groupId}.${project.artifactId}</option>
-						<option>-keepclassmembers public class ru.fourgotten.VoxileSecurity.Data.** { *; }</option>
-						<option>-keepclassmembers @ru.fourgotten.VoxileSecurity.ProGuardKeep class ** { @java.lang.Override *; }</option>
+						<option>-keepclassmembers public class ru.methuselah.securitylibrary.Data.** { *; }</option>
+						<option>-keepclassmembers @ru.methuselah.securitylibrary.ProGuardKeep class ** { @java.lang.Override *; }</option>
 						<option>-keep public class ${project.groupId}.${project.artifactId}.Wrapper { public static void main(java.lang.String[]); }</option>
 						<option>-keep public class ${project.groupId}.${project.artifactId}.Tweaker { *; }</option>
 						<option>-dontnote ru.methuselah.authlib.**</option>
-						<option>-dontnote ru.fourgotten.VoxileSecurity.Data.**</option>
-						<option>-dontnote ru.fourgotten.VoxileSecurity.Hacks.**</option>
+						<option>-dontnote ru.methuselah.securitylibrary.Data.**</option>
+						<option>-dontnote ru.methuselah.securitylibrary.Hacks.**</option>
 						<option>-dontnote **-shaded.**</option>
 					</options>
 					<injar>${project.build.finalName}.jar</injar>

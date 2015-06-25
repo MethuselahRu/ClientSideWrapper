@@ -1,8 +1,8 @@
 package ru.methuselah.clientsidewrapper;
 
-import ru.fourgotten.VoxileSecurity.Data.MessagesWrapper.MessageWrappedGame;
-import ru.fourgotten.VoxileSecurity.SecureConnection;
-import ru.fourgotten.VoxileSecurity.WrappedGameStarter;
+import ru.methuselah.securitylibrary.Data.MessagesWrapper.MessageWrappedGame;
+import ru.methuselah.securitylibrary.SecureConnection;
+import ru.methuselah.securitylibrary.WrappedGameStarter;
 
 public final class Wrapper extends WrappedGameStarter
 {
@@ -16,14 +16,12 @@ public final class Wrapper extends WrappedGameStarter
 			connection.start();
 			System.out.println("Connecting to the launcher (" + port + ")...");
 			for(int interval = 0; !Thread.interrupted() && (interval * granuleMSec < timeoutMSec); Thread.sleep(granuleMSec), interval += 1)
-			{
 				if(connection.isConnected())
 				{
 					connection.getWrapper().writeLine("wrapper2launcher");
 					return connection.getWrapper().readObject(MessageWrappedGame.class);
-				}
-				System.out.print(".");
-			}
+				} else
+					System.out.print(".");
 		} catch(InterruptedException ex) {
 			System.err.println(ex);
 		} catch(RuntimeException ex) {
@@ -37,44 +35,35 @@ public final class Wrapper extends WrappedGameStarter
 		final String myOwnPath = myOwnURL.getPath().toLowerCase();
 		if(!myOwnPath.endsWith(".jar") && !myOwnPath.endsWith(".exe"))
 		{
-			System.err.println("Bad source location! (1)");
+			System.err.println("Startup wrapper error: bad source location! (1)");
 			System.exit(1);
 		}
-		try
+		MessageWrappedGame msg;
+		if(args.length == 2 && "--port".equalsIgnoreCase(args[0]))
 		{
-			MessageWrappedGame msg;
-			if(args.length == 2 && "--port".equalsIgnoreCase(args[0]))
+			try
 			{
-				// Connect and receive starting parameters
-				if(args.length != 2)
-				{
-					System.err.println("Wrong command line! (2)");
-					System.exit(2);
-				}
-				if(!"--port".equalsIgnoreCase(args[0]))
-				{
-					System.err.println("Wrong command line! (3-1)");
-					System.exit(3);
-				}
+				// Connect to the launcher and receive starting parameters thought TCP/SSL
 				final int localLauncherPort = Integer.parseInt(args[1]);
 				msg = receiveMessageFromLauncher(localLauncherPort);
-			} else {
-				System.err.println("Wrong command line! (3-3)");
-				System.exit(3);
-				msg = new MessageWrappedGame();
+				if(msg == null)
+				{
+					System.err.println("Startup wrapper error: cannot receive data from local launcher instance! (2-1)\n"
+						+ "Please check if the firewall is blocking it.");
+					System.exit(2);
+				}
+			} catch(NumberFormatException ex) {
+				System.err.println("Startup wrapper error: wrong command line! (2)");
+				System.exit(2);
 			}
-			if(msg == null)
-			{
-				System.err.println("Cannot receive data from local launcher instance!\n"
-					+ "Please check if the firewall is blocking it.");
-				System.exit(4);
-			}
-			msg.tweakerClass = Tweaker.class.getCanonicalName();
-			System.exit(startGameInCurrentProcess(msg));
-		} catch(NumberFormatException ex) {
-			System.err.println("Wrong command line! (3-2)");
-			System.exit(3);
+		} else {
+			msg = new MessageWrappedGame();
+			msg.libraries = System.getProperty("java.class.path").split("\\;");
+			msg.arguments = args;
 		}
+		msg = new MessageWrappedGame();
+		msg.tweakerClass = Tweaker.class.getCanonicalName();
+		System.exit(startGameInCurrentProcess(msg));
 	}
 	public static void main(String[] args)
 	{

@@ -6,9 +6,9 @@ import java.lang.reflect.Method;
 import java.util.List;
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
-import ru.fourgotten.VoxileSecurity.Data.MessagesWrapper.MessageWrappedGame;
-import ru.fourgotten.VoxileSecurity.Hacks.HacksApplicator;
-import ru.fourgotten.VoxileSecurity.WrappedGameStarter;
+import ru.methuselah.securitylibrary.Data.MessagesWrapper.MessageWrappedGame;
+import ru.methuselah.securitylibrary.Hacks.HacksApplicator;
+import ru.methuselah.securitylibrary.WrappedGameStarter;
 import ru.methuselah.authlib.GlobalReplacementList;
 
 public class Tweaker implements ITweaker
