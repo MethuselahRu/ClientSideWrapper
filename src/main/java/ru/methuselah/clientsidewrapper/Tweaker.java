@@ -44,7 +44,7 @@ public class Tweaker implements ITweaker
 	@Override
 	public void injectIntoClassLoader(LaunchClassLoader classLoader)
 	{
-		System.out.println("Injecting Methuselah into minecraft client...");
+		System.out.println("[Methuselah CSW] Injecting into minecraft client...");
 		if(instance != null)
 		{
 			final MessageWrappedGame message = instance.getMessage();

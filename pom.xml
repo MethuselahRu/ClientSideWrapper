@@ -5,7 +5,7 @@
 	<name>ru.methuselah.clientsidewrapper</name>
 	<groupId>ru.methuselah</groupId>
 	<artifactId>clientsidewrapper</artifactId>
-	<version>0.15a</version>
+	<version>0.16a</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -25,12 +25,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.35</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
@@ -38,7 +32,7 @@
 		<dependency>
 			<groupId>ru.methuselah</groupId>
 			<artifactId>securitylibrary</artifactId>
-			<version>0.15a</version>
+			<version>0.16a</version>
 		</dependency>
 		<dependency>
 			<groupId>net.minecraft</groupId>
@@ -116,7 +110,6 @@
 						<option>-keepclassmembers @ru.methuselah.securitylibrary.ProGuardKeep class ** { @java.lang.Override *; }</option>
 						<option>-keep public class ${project.groupId}.${project.artifactId}.Wrapper { public static void main(java.lang.String[]); }</option>
 						<option>-keep public class ${project.groupId}.${project.artifactId}.Tweaker { *; }</option>
-						<option>-dontnote ru.methuselah.authlib.**</option>
 						<option>-dontnote ru.methuselah.securitylibrary.Data.**</option>
 						<option>-dontnote ru.methuselah.securitylibrary.Hacks.**</option>
 						<option>-dontnote **-shaded.**</option>
@@ -156,7 +149,7 @@
 								<includes>
 									<include>com.google.code.gson:gson</include>
 									<include>ru.methuselah:authlib</include>
-									<!--include>ru.fourgotten:VoxileSecurity</include-->
+									<!--include>ru.methuselah:securitylibrary</include-->
 								</includes>
 							</artifactSet>
 							<relocations>

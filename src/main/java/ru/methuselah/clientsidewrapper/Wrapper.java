@@ -1,5 +1,7 @@
 package ru.methuselah.clientsidewrapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import ru.methuselah.securitylibrary.Data.MessagesWrapper.MessageWrappedGame;
 import ru.methuselah.securitylibrary.SecureConnection;
 import ru.methuselah.securitylibrary.WrappedGameStarter;
@@ -36,9 +38,9 @@ public final class Wrapper extends WrappedGameStarter
 		if(!myOwnPath.endsWith(".jar") && !myOwnPath.endsWith(".exe"))
 		{
 			System.err.println("Startup wrapper error: bad source location! (1)");
-			System.exit(1);
+			// System.exit(1);
 		}
-		MessageWrappedGame msg;
+		MessageWrappedGame msg = null;
 		if(args.length == 2 && "--port".equalsIgnoreCase(args[0]))
 		{
 			try
@@ -56,12 +58,13 @@ public final class Wrapper extends WrappedGameStarter
 				System.err.println("Startup wrapper error: wrong command line! (2)");
 				System.exit(2);
 			}
-		} else {
+		}
+		if(msg == null)
+		{
 			msg = new MessageWrappedGame();
 			msg.libraries = System.getProperty("java.class.path").split("\\;");
 			msg.arguments = args;
 		}
-		msg = new MessageWrappedGame();
 		msg.tweakerClass = Tweaker.class.getCanonicalName();
 		System.exit(startGameInCurrentProcess(msg));
 	}
