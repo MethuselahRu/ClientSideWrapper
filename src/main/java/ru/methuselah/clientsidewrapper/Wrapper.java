@@ -1,7 +1,5 @@
 package ru.methuselah.clientsidewrapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import ru.methuselah.securitylibrary.Data.MessagesWrapper.MessageWrappedGame;
 import ru.methuselah.securitylibrary.SecureConnection;
 import ru.methuselah.securitylibrary.WrappedGameStarter;
@@ -38,7 +36,7 @@ public final class Wrapper extends WrappedGameStarter
 		if(!myOwnPath.endsWith(".jar") && !myOwnPath.endsWith(".exe"))
 		{
 			System.err.println("Startup wrapper error: bad source location! (1)");
-			// System.exit(1);
+			System.exit(1);
 		}
 		MessageWrappedGame msg = null;
 		if(args.length == 2 && "--port".equalsIgnoreCase(args[0]))

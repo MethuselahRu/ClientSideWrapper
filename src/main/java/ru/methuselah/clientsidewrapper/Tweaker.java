@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
-import ru.methuselah.authlib.links.GlobalReplacementList;
+import ru.methuselah.authlib.links.LinksMethuselah;
 import ru.methuselah.securitylibrary.Data.MessagesWrapper.MessageWrappedGame;
 import ru.methuselah.securitylibrary.Hacks.HacksApplicator;
 import ru.methuselah.securitylibrary.WrappedGameStarter;
@@ -44,17 +44,20 @@ public class Tweaker implements ITweaker
 	@Override
 	public void injectIntoClassLoader(LaunchClassLoader classLoader)
 	{
-		System.out.println("[Methuselah CSW] Injecting into minecraft client...");
 		if(instance != null)
 		{
+			System.out.println("[Methuselah] Found saved CSW instance!");
 			final MessageWrappedGame message = instance.getMessage();
 			if(message != null)
 			{
+				System.out.println("[Methuselah] Injecting into minecraft client...");
 				HacksApplicator.process(message, classLoader);
 				return;
 			}
 		}
-		HacksApplicator.process(new GlobalReplacementList(), classLoader);
+		System.out.println("[Methuselah] Saved CSW instance is not found or message is empty!.");
+		System.out.println("[Methuselah] Injecting default links provider...");
+		HacksApplicator.process(new LinksMethuselah().buildReplacements(), classLoader);
 	}
 	@Override
 	public String getLaunchTarget()

@@ -31,6 +31,11 @@
 		</dependency>
 		<dependency>
 			<groupId>ru.methuselah</groupId>
+			<artifactId>authlib</artifactId>
+			<version>0.16a</version>
+		</dependency>
+		<dependency>
+			<groupId>ru.methuselah</groupId>
 			<artifactId>securitylibrary</artifactId>
 			<version>0.16a</version>
 		</dependency>
@@ -144,7 +149,7 @@
 						</goals>
 						<configuration>
 							<createDependencyReducedPom>false</createDependencyReducedPom>
-							<minimizeJar>true</minimizeJar>
+							<minimizeJar>false</minimizeJar>
 							<artifactSet>
 								<includes>
 									<include>com.google.code.gson:gson</include>
@@ -156,9 +161,6 @@
 								<relocation>
 									<pattern>com.google.gson</pattern>
 									<shadedPattern>${project.groupId}.${project.artifactId}.com-google-gson-shaded</shadedPattern>
-									<includes>
-										<include>com.google.gson.*</include>
-									</includes>
 								</relocation>
 							</relocations>
 						</configuration>
