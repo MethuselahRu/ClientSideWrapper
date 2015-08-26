@@ -13,12 +13,13 @@ import ru.methuselah.securitylibrary.WrappedGameStarter;
 
 public class Tweaker implements ITweaker
 {
-	private static WrappedGameStarter instance;
-	static
+	private WrappedGameStarter instance = null;
+	public Tweaker()
 	{
 		try
 		{
-			for(Method method : Class.forName(Wrapper.class.getCanonicalName(), true, ClassLoader.getSystemClassLoader()).getMethods())
+			final ClassLoader systemCL = ClassLoader.getSystemClassLoader();
+			for(Method method : Class.forName(Wrapper.class.getCanonicalName(), true, systemCL).getMethods())
 				if(method.getReturnType().equals(WrappedGameStarter.class))
 				{
 					instance = (WrappedGameStarter)method.invoke(null, new Object[] {});

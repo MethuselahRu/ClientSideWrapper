@@ -149,11 +149,10 @@
 						</goals>
 						<configuration>
 							<createDependencyReducedPom>false</createDependencyReducedPom>
-							<minimizeJar>false</minimizeJar>
+							<minimizeJar>true</minimizeJar>
 							<artifactSet>
 								<includes>
 									<include>com.google.code.gson:gson</include>
-									<include>ru.methuselah:authlib</include>
 									<!--include>ru.methuselah:securitylibrary</include-->
 								</includes>
 							</artifactSet>
@@ -176,6 +175,7 @@
 							<minimizeJar>false</minimizeJar>
 							<artifactSet>
 								<includes>
+									<include>ru.methuselah:authlib</include>
 									<include>net.minecraft:launchwrapper</include>
 								</includes>
 							</artifactSet>
