@@ -1,8 +1,10 @@
 package ru.methuselah.clientsidewrapper;
 
+import java.io.File;
 import ru.methuselah.securitylibrary.Data.MessagesWrapper.MessageWrappedGame;
 import ru.methuselah.securitylibrary.SecureConnection;
 import ru.methuselah.securitylibrary.WrappedGameStarter;
+import ru.simsonic.rscCommonsLibrary.HashAndCipherUtilities;
 
 public final class Wrapper extends WrappedGameStarter
 {
@@ -48,14 +50,22 @@ public final class Wrapper extends WrappedGameStarter
 				msg = receiveMessageFromLauncher(localLauncherPort);
 				if(msg == null)
 				{
-					System.err.println("Startup wrapper error: cannot receive data from local launcher instance! (2-1)\n"
+					System.err.println("Startup wrapper error: cannot receive data from local launcher instance! (2-2)\n"
 						+ "Please check if the firewall is blocking it.");
-					System.exit(2);
 				}
 			} catch(NumberFormatException ex) {
-				System.err.println("Startup wrapper error: wrong command line! (2)");
-				System.exit(2);
+				System.err.println("Startup wrapper error: wrong command line! (2-1)");
 			}
+		}
+		final File file = new File("startup.bin");
+		if(file.isFile())
+		{
+			if(msg == null)
+			{
+				System.err.println("Now I'm trying to find secure message using filesystem.");
+				msg = HashAndCipherUtilities.loadEncryptedObject(file, MessageWrappedGame.class);
+			}
+			file.delete();
 		}
 		if(msg == null)
 		{

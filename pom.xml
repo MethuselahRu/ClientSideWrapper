@@ -25,6 +25,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>net.minecraft</groupId>
+			<artifactId>launchwrapper</artifactId>
+			<version>1.11</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
@@ -40,9 +45,9 @@
 			<version>0.16a</version>
 		</dependency>
 		<dependency>
-			<groupId>net.minecraft</groupId>
-			<artifactId>launchwrapper</artifactId>
-			<version>1.11</version>
+			<groupId>ru.simsonic</groupId>
+			<artifactId>rscCommonsLibrary</artifactId>
+			<version>2.1.0</version>
 		</dependency>
 	</dependencies>
 
@@ -153,6 +158,7 @@
 							<artifactSet>
 								<includes>
 									<include>com.google.code.gson:gson</include>
+									<include>ru.simsonic:rscCommonsLibrary</include>
 									<!--include>ru.methuselah:securitylibrary</include-->
 								</includes>
 							</artifactSet>
@@ -160,6 +166,10 @@
 								<relocation>
 									<pattern>com.google.gson</pattern>
 									<shadedPattern>${project.groupId}.${project.artifactId}.com-google-gson-shaded</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>ru.simsonic.rscCommonsLibrary</pattern>
+									<shadedPattern>${project.groupId}.${project.artifactId}.rscCommonsLibrary-shaded</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>
