@@ -154,19 +154,18 @@
 						</goals>
 						<configuration>
 							<createDependencyReducedPom>false</createDependencyReducedPom>
-							<minimizeJar>true</minimizeJar>
+							<minimizeJar>false</minimizeJar>
 							<artifactSet>
 								<includes>
-									<include>com.google.code.gson:gson</include>
 									<include>ru.simsonic:rscCommonsLibrary</include>
 									<!--include>ru.methuselah:securitylibrary</include-->
 								</includes>
 							</artifactSet>
 							<relocations>
-								<relocation>
+								<!--relocation>
 									<pattern>com.google.gson</pattern>
 									<shadedPattern>${project.groupId}.${project.artifactId}.com-google-gson-shaded</shadedPattern>
-								</relocation>
+								</relocation-->
 								<relocation>
 									<pattern>ru.simsonic.rscCommonsLibrary</pattern>
 									<shadedPattern>${project.groupId}.${project.artifactId}.rscCommonsLibrary-shaded</shadedPattern>
@@ -185,6 +184,7 @@
 							<minimizeJar>false</minimizeJar>
 							<artifactSet>
 								<includes>
+									<include>com.google.code.gson:gson</include>
 									<include>ru.methuselah:authlib</include>
 									<include>net.minecraft:launchwrapper</include>
 								</includes>
