@@ -10,6 +10,10 @@ public final class Wrapper extends WrappedGameStarter
 {
 	private static final int timeoutMSec = 1000 * 30;
 	private static final int granuleMSec = 1000 * 2;
+	public static WrappedGameStarter getInstance()
+	{
+		return WrappedGameStarter.getInstance();
+	}
 	public MessageWrappedGame receiveMessageFromLauncher(int port)
 	{
 		try

@@ -16,16 +16,21 @@ public class Tweaker implements ITweaker
 	private WrappedGameStarter instance = null;
 	public Tweaker()
 	{
+		System.out.println("[Methuselah] Initializing tweaker class!");
+		final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 		try
 		{
 			final ClassLoader systemCL = ClassLoader.getSystemClassLoader();
-			for(Method method : Class.forName(Wrapper.class.getCanonicalName(), true, systemCL).getMethods())
-				if(method.getReturnType().equals(WrappedGameStarter.class))
+			Thread.currentThread().setContextClassLoader(systemCL);
+			for(Method method : systemCL.loadClass(Wrapper.class.getCanonicalName()).getMethods())
+				if(method.getReturnType().getCanonicalName().equals(WrappedGameStarter.class.getCanonicalName()))
 				{
 					instance = (WrappedGameStarter)method.invoke(null, new Object[] {});
-					System.out.println("Successfully found wrapper instance...");
+					System.out.println("[Methuselah] Successfully found wrapper instance...");
 					break;
 				}
+			if(instance == null)
+				System.err.println("[Methuselah] Wrapper instance found but method absent!..");
 		} catch(ClassNotFoundException ex) {
 			System.err.println(ex);
 		} catch(IllegalAccessException ex) {
@@ -36,7 +41,10 @@ public class Tweaker implements ITweaker
 			System.err.println(ex);
 		} catch(NullPointerException ex) {
 			System.err.println(ex);
+		} catch(RuntimeException ex) {
+			System.err.println(ex);
 		}
+		Thread.currentThread().setContextClassLoader(contextClassLoader);
 	}
 	@Override
 	public void acceptOptions(List<String> args, File gameDirectory, File assetsDirectory, String profile)
